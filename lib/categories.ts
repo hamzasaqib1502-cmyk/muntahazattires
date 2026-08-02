@@ -1,5 +1,15 @@
 import type { Category } from "@/lib/types";
 
+// Canonical display order across the site (home, hamburger menu, admin).
+export const CATEGORY_ORDER: string[] = [
+  "stitched",
+  "unstitched",
+  "new-arrivals",
+  "bottoms",
+  "co-ords",
+  "other-brands-sale",
+];
+
 // Static defaults used until Supabase wiring lands (Phase 6). Phase 3+
 // replaces this with a DB fetch of the categories table.
 export const defaultCategories: Category[] = [
@@ -16,9 +26,9 @@ export const defaultCategories: Category[] = [
     heroCaption: null,
   },
   {
-    slug: "other-brands-sale",
-    displayName: "Other Brands Sale",
-    heroImage: "/images/categories/other-brands-sale.jpg",
+    slug: "new-arrivals",
+    displayName: "New Arrivals",
+    heroImage: "/images/categories/new-arrivals.jpg",
     heroCaption: null,
   },
   {
@@ -28,15 +38,15 @@ export const defaultCategories: Category[] = [
     heroCaption: null,
   },
   {
-    slug: "new-arrivals",
-    displayName: "New Arrivals",
-    heroImage: "/images/categories/new-arrivals.jpg",
-    heroCaption: null,
-  },
-  {
     slug: "co-ords",
     displayName: "Co-Ords",
     heroImage: "/images/categories/co-ords.jpg",
+    heroCaption: null,
+  },
+  {
+    slug: "other-brands-sale",
+    displayName: "Other Brands Sale",
+    heroImage: "/images/categories/other-brands-sale.jpg",
     heroCaption: null,
   },
 ];

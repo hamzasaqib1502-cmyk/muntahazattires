@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
-import { defaultCategories } from "@/lib/categories";
+import { CATEGORY_ORDER, defaultCategories } from "@/lib/categories";
 import { defaultItems } from "@/lib/items";
 import type { Category, Item, Order, ShippingRate } from "@/lib/types";
 
@@ -32,6 +32,16 @@ function mapCategory(row: CategoryRow): Category {
   };
 }
 
+// Categories are displayed in a fixed order (CATEGORY_ORDER), not alphabetical.
+function sortByCatalogOrder<T extends { slug: string }>(items: T[]): T[] {
+  const rank = new Map(CATEGORY_ORDER.map((slug, index) => [slug, index]));
+  return [...items].sort(
+    (a, b) =>
+      (rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER) -
+      (rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER),
+  );
+}
+
 function mapItem(row: ItemRow): Item {
   return {
     id: row.id,
@@ -57,9 +67,9 @@ export const getCategories = cache(async (): Promise<Category[]> => {
       .order("slug");
 
     if (error || !data) throw error;
-    return data.map(mapCategory);
+    return sortByCatalogOrder(data.map(mapCategory));
   } catch {
-    return defaultCategories;
+    return sortByCatalogOrder(defaultCategories);
   }
 });
 

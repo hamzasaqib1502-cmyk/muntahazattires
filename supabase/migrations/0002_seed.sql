@@ -6,10 +6,10 @@ insert into public.categories (slug, display_name, hero_image, hero_caption)
 values
   ('stitched', 'Stitched', '/images/categories/stitched.jpg', null),
   ('unstitched', 'Unstitched', '/images/categories/unstitched.jpg', null),
-  ('other-brands-sale', 'Other Brands Sale', '/images/categories/other-brands-sale.jpg', null),
-  ('bottoms', 'Bottoms', '/images/categories/bottoms.jpg', null),
   ('new-arrivals', 'New Arrivals', '/images/categories/new-arrivals.jpg', null),
-  ('co-ords', 'Co-Ords', '/images/categories/co-ords.jpg', null)
+  ('bottoms', 'Bottoms', '/images/categories/bottoms.jpg', null),
+  ('co-ords', 'Co-Ords', '/images/categories/co-ords.jpg', null),
+  ('other-brands-sale', 'Other Brands Sale', '/images/categories/other-brands-sale.jpg', null)
 on conflict (slug) do update set
   display_name = excluded.display_name,
   hero_image = excluded.hero_image,
