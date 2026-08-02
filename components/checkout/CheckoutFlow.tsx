@@ -45,6 +45,7 @@ export function CheckoutFlow({
   const [promo, setPromo] = useState<AppliedPromo | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [attempted, setAttempted] = useState(false);
 
   const itemById = new Map(items.map((item) => [item.id, item]));
   const entries: SummaryEntry[] = lines
@@ -114,8 +115,25 @@ export function CheckoutFlow({
   const canPlace =
     addressValid && shippingCost !== null && phone.trim() !== "" && entries.length > 0;
 
+  const formError = attempted
+    ? phone.trim() === ""
+      ? "Please enter your phone number to place your order."
+      : !addressValid
+        ? "Please fill in your complete shipping address to place your order."
+        : shippingCost === null
+          ? "We couldn't find shipping rates for your selected address."
+          : null
+    : null;
+
   async function placeOrder() {
-    if (!canPlace || submitting) return;
+    if (submitting) return;
+
+    if (!canPlace) {
+      setAttempted(true);
+      return;
+    }
+
+    setAttempted(false);
     setSubmitting(true);
     setError(null);
 
@@ -292,7 +310,7 @@ export function CheckoutFlow({
           promoCode={promo?.code ?? null}
           total={total}
           submitting={submitting}
-          error={error}
+          error={formError ?? error}
           onSubmit={placeOrder}
         />
       </div>

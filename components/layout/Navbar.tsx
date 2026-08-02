@@ -112,6 +112,11 @@ export function Navbar({
           className={`relative p-[5px] transition-colors ${navTextColor} ${navHover}`}
         >
           <ShoppingCart className="h-7 w-7" />
+          {cartCount > 0 && (
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-bold leading-none text-white">
+              {cartCount}
+            </span>
+          )}
         </button>
 
         <SignInButton

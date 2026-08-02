@@ -89,9 +89,6 @@ export function ShippingSummary({
         </p>
         <p className="mt-2 flex items-center gap-2 text-sm font-medium text-black">
           Cash on Delivery
-          <span className="text-[10px] uppercase tracking-widest text-gray-400">
-            (only option)
-          </span>
         </p>
       </div>
 
